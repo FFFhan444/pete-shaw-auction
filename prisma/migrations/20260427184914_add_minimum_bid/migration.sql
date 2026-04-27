@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Listing" ADD COLUMN     "minimumBid" DOUBLE PRECISION NOT NULL DEFAULT 0;
