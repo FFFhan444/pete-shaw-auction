@@ -35,15 +35,6 @@ export default async function HomePage() {
       {/* Listings */}
       <main className="max-w-5xl mx-auto px-4 py-8 w-full flex-1">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {/* Add item card — always first */}
-          <Link
-            href="/listings/new"
-            className="group rounded-lg border-2 border-dashed border-ink/20 hover:border-green/50 hover:bg-green-light/40 transition-all flex flex-col items-center justify-center min-h-[220px] text-center"
-          >
-            <span className="text-3xl text-ink/20 group-hover:text-green/50 transition-colors mb-2">+</span>
-            <span className="text-sm font-semibold text-ink/40 group-hover:text-green transition-colors">Add item</span>
-          </Link>
-
           {listings.map((listing: Listing & { bids: { amount: number }[]; _count: { bids: number } }) => {
             const highestBid = listing.bids[0]?.amount;
             return (
@@ -90,6 +81,15 @@ export default async function HomePage() {
               </Link>
             );
           })}
+
+          {/* Add item card — always last */}
+          <Link
+            href="/listings/new"
+            className="group rounded-lg border-2 border-dashed border-ink/20 hover:border-green/50 hover:bg-green-light/40 transition-all flex flex-col items-center justify-center min-h-[220px] text-center"
+          >
+            <span className="text-3xl text-ink/20 group-hover:text-green/50 transition-colors mb-2">+</span>
+            <span className="text-sm font-semibold text-ink/40 group-hover:text-green transition-colors">Add item</span>
+          </Link>
         </div>
       </main>
 
