@@ -20,7 +20,7 @@ export default function NewListingForm() {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-8 w-full flex-1">
+    <main className="max-w-3xl mx-auto px-4 pt-14 pb-8 w-full flex-1">
         <h1 className="text-2xl font-semibold text-ink mb-6">Add auction item</h1>
 
         <form action={action} className="space-y-5">

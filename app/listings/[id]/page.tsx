@@ -36,7 +36,7 @@ export default async function ListingPage(props: {
         }
       />
 
-      <main className="max-w-5xl mx-auto px-4 py-8 w-full flex-1">
+      <main className="max-w-5xl mx-auto px-4 pt-14 pb-8 w-full flex-1">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left column: listing details */}
           <div>
