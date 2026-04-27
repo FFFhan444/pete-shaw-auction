@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
-import { Crimson_Text, Atkinson_Hyperlegible } from "next/font/google";
+import { Crimson_Text } from "next/font/google";
 import "./globals.css";
 
 const crimsonText = Crimson_Text({
   weight: ["400", "600"],
   subsets: ["latin"],
   variable: "--font-crimson",
-});
-
-const atkinson = Atkinson_Hyperlegible({
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  variable: "--font-atkinson",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${crimsonText.variable} ${atkinson.variable} h-full`}>
+    <html lang="en" className={`${crimsonText.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-cream text-ink">
         {children}
       </body>

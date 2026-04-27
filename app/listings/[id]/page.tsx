@@ -5,6 +5,7 @@ import type { Bid } from "@/app/generated/prisma/client";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/session";
 import NavBar from "@/app/components/NavBar";
+import Footer from "@/app/components/Footer";
 import BidForm from "./BidForm";
 import DeleteButton from "./DeleteButton";
 
@@ -27,7 +28,7 @@ export default async function ListingPage(props: {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <NavBar displayName={session.displayName} />
+      <NavBar />
 
       <main className="max-w-5xl mx-auto px-4 pt-14 pb-8 w-full flex-1">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -203,11 +204,7 @@ export default async function ListingPage(props: {
         </div>
       </main>
 
-      <footer className="mt-auto border-t border-ink/10 py-4">
-        <p className="text-center text-xs text-ink/30">
-          Pete Shaw Memorial Golf Day 2026 · Raising funds for Woking Hospice
-        </p>
-      </footer>
+      <Footer displayName={session.displayName} />
     </div>
   );
 }

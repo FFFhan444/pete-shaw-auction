@@ -6,15 +6,11 @@
   --color-green-light: #e8f0e4;
   --color-cream: #faf9f5;
   --color-ink: #1a1a1a;
-  --font-sans: var(--font-atkinson);
+  --font-sans: var(--font-crimson);
   --font-serif: var(--font-crimson);
 }
 
 body {
   background-color: #faf9f5;
   color: #1a1a1a;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-crimson);
 }

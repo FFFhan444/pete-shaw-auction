@@ -4,6 +4,7 @@ import type { Listing } from "@/app/generated/prisma/client";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/session";
 import NavBar from "@/app/components/NavBar";
+import Footer from "@/app/components/Footer";
 
 export default async function HomePage() {
   const session = await getSession();
@@ -17,17 +18,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <NavBar
-        displayName={session.displayName}
-        right={
-          <Link
-            href="/listings/new"
-            className="bg-white text-green rounded-full px-4 py-1.5 text-sm font-semibold hover:bg-green-light transition-colors"
-          >
-            + Add item
-          </Link>
-        }
-      />
+      <NavBar />
 
       {/* Hero label */}
       <div className="bg-green-light border-b border-green/20 pt-7">
@@ -43,73 +34,66 @@ export default async function HomePage() {
 
       {/* Listings */}
       <main className="max-w-5xl mx-auto px-4 py-8 w-full flex-1">
-        {listings.length === 0 ? (
-          <div className="text-center py-24">
-            <p className="text-ink/40 text-lg mb-4">No auction items yet.</p>
-            <Link
-              href="/listings/new"
-              className="bg-green text-white rounded-full px-6 py-2.5 font-semibold hover:bg-green-dark transition-colors"
-            >
-              Add the first item
-            </Link>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {listings.map((listing: Listing & { bids: { amount: number }[]; _count: { bids: number } }) => {
-              const highestBid = listing.bids[0]?.amount;
-              return (
-                <Link
-                  key={listing.id}
-                  href={`/listings/${listing.id}`}
-                  className="group bg-white rounded-lg border border-ink/10 overflow-hidden hover:border-green/40 hover:shadow-md transition-all flex flex-col"
-                >
-                  {listing.imageUrl ? (
-                    <div className="relative h-44 w-full bg-ink/5">
-                      <Image
-                        src={listing.imageUrl}
-                        alt={listing.title}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ) : (
-                    <div className="h-44 w-full bg-green-light flex items-center justify-center">
-                      <span className="text-green/40 text-4xl">⛳</span>
-                    </div>
-                  )}
-                  <div className="p-4 flex flex-col flex-1">
-                    <h2 className="text-lg font-semibold text-ink leading-snug group-hover:text-green transition-colors">
-                      {listing.title}
-                    </h2>
-                    <p className="text-ink/60 text-sm mt-1 line-clamp-2 flex-1">
-                      {listing.description}
-                    </p>
-                    <div className="mt-3 pt-3 border-t border-ink/10 flex items-center justify-between">
-                      {highestBid != null ? (
-                        <span className="text-green font-semibold text-base">
-                          £{highestBid.toFixed(2)}
-                        </span>
-                      ) : (
-                        <span className="text-ink/40 text-sm">No bids yet</span>
-                      )}
-                      <span className="text-xs text-ink/40">
-                        {listing._count.bids}{" "}
-                        {listing._count.bids === 1 ? "bid" : "bids"}
-                      </span>
-                    </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Add item card — always first */}
+          <Link
+            href="/listings/new"
+            className="group rounded-lg border-2 border-dashed border-ink/20 hover:border-green/50 hover:bg-green-light/40 transition-all flex flex-col items-center justify-center min-h-[220px] text-center"
+          >
+            <span className="text-3xl text-ink/20 group-hover:text-green/50 transition-colors mb-2">+</span>
+            <span className="text-sm font-semibold text-ink/40 group-hover:text-green transition-colors">Add item</span>
+          </Link>
+
+          {listings.map((listing: Listing & { bids: { amount: number }[]; _count: { bids: number } }) => {
+            const highestBid = listing.bids[0]?.amount;
+            return (
+              <Link
+                key={listing.id}
+                href={`/listings/${listing.id}`}
+                className="group bg-white rounded-lg border border-ink/10 overflow-hidden hover:border-green/40 hover:shadow-md transition-all flex flex-col"
+              >
+                {listing.imageUrl ? (
+                  <div className="relative h-44 w-full bg-ink/5">
+                    <Image
+                      src={listing.imageUrl}
+                      alt={listing.title}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
-                </Link>
-              );
-            })}
-          </div>
-        )}
+                ) : (
+                  <div className="h-44 w-full bg-green-light flex items-center justify-center">
+                    <span className="text-green/40 text-4xl">⛳</span>
+                  </div>
+                )}
+                <div className="p-4 flex flex-col flex-1">
+                  <h2 className="text-lg font-semibold text-ink leading-snug group-hover:text-green transition-colors">
+                    {listing.title}
+                  </h2>
+                  <p className="text-ink/60 text-sm mt-1 line-clamp-2 flex-1">
+                    {listing.description}
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-ink/10 flex items-center justify-between">
+                    {highestBid != null ? (
+                      <span className="text-green font-semibold text-base">
+                        £{highestBid.toFixed(2)}
+                      </span>
+                    ) : (
+                      <span className="text-ink/40 text-sm">No bids yet</span>
+                    )}
+                    <span className="text-xs text-ink/40">
+                      {listing._count.bids}{" "}
+                      {listing._count.bids === 1 ? "bid" : "bids"}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
       </main>
 
-      <footer className="mt-auto border-t border-ink/10 py-4">
-        <p className="text-center text-xs text-ink/30">
-          Pete Shaw Memorial Golf Day 2026 · Raising funds for Woking Hospice
-        </p>
-      </footer>
+      <Footer displayName={session.displayName} />
     </div>
   );
 }
