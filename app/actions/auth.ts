@@ -14,7 +14,7 @@ export async function login(
     return { error: "Please enter both your name and the event password." };
   }
 
-  if (password !== process.env.AUCTION_PASSWORD) {
+  if (password !== process.env.AUCTION_PASSWORD?.trim()) {
     return { error: "Incorrect password. Please try again." };
   }
 

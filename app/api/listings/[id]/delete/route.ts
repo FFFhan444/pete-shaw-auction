@@ -13,7 +13,7 @@ export async function POST(
 
   const { adminPassword } = await request.json();
 
-  if (adminPassword !== process.env.ADMIN_PASSWORD) {
+  if (adminPassword !== process.env.ADMIN_PASSWORD?.trim()) {
     return NextResponse.json(
       { error: "Incorrect admin password." },
       { status: 403 }
