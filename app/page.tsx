@@ -22,11 +22,11 @@ export default async function HomePage() {
 
       {/* Hero label */}
       <div className="bg-green-light border-b border-green/20 pt-7">
-        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex flex-col items-center text-center gap-0.5">
           <p className="text-green font-semibold text-base">
             Charity Auction — Raising funds for Woking Hospice
           </p>
-          <p className="text-ink/50 text-sm hidden sm:block">
+          <p className="text-ink/50 text-sm">
             Thursday 4th June · Tyrrells Wood Golf Club
           </p>
         </div>
