@@ -33,7 +33,7 @@ export default function BidForm({ listingId, displayName, minimumBid }: Props) {
               name="amount"
               type="number"
               step="0.01"
-              min={minimumBid + 0.01}
+              min={minimumBid > 0 ? minimumBid + 0.01 : 0.01}
               required
               placeholder={minimumBid > 0 ? `> ${minimumBid.toFixed(2)}` : "0.00"}
               className="w-full border border-ink/20 rounded-md pl-7 pr-4 py-2.5 text-ink bg-white focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-base"

@@ -132,7 +132,7 @@ export default async function ListingPage(props: {
             <BidForm
               listingId={id}
               displayName={session.displayName!}
-              minimumBid={Math.max(highestBid?.amount ?? 0, listing.minimumBid)}
+              minimumBid={Math.max(highestBid?.amount ?? 0, listing.minimumBid ?? 0)}
             />
 
             {/* Bid history */}
