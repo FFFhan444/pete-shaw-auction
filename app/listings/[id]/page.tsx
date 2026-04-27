@@ -27,19 +27,32 @@ export default async function ListingPage(props: {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <NavBar
-        displayName={session.displayName}
-        right={
-          <Link href="/" className="text-white/70 text-sm hover:text-white transition-colors">
-            ← All items
-          </Link>
-        }
-      />
+      <NavBar displayName={session.displayName} />
 
       <main className="max-w-5xl mx-auto px-4 pt-14 pb-8 w-full flex-1">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Left column: listing details */}
           <div>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1 text-sm text-ink/50 hover:text-green transition-colors mb-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+              All items
+            </Link>
+
             {listing.imageUrl && (
               <div className="relative w-full h-64 rounded-lg overflow-hidden border border-ink/10 mb-6">
                 <Image
