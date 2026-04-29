@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getSession } from "@/lib/session";
 import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
@@ -9,13 +8,7 @@ export default async function NewListingPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <NavBar
-        right={
-          <Link href="/" className="text-white/70 text-sm hover:text-white transition-colors">
-            ← Back to auction
-          </Link>
-        }
-      />
+      <NavBar />
       <NewListingForm />
       <Footer displayName={session.displayName} />
     </div>

@@ -4,6 +4,14 @@ import { useActionState, useState } from "react";
 import Link from "next/link";
 import { createListing } from "@/app/actions/listings";
 
+function ChevronLeft() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+  );
+}
+
 const EMOJIS = [
   "⛳", "🏌️", "🏆", "🎁", "🍾", "🥂", "🍷", "🎶",
   "🌿", "🎨", "🏖️", "✈️", "🏠", "🚗", "🎭", "🎿",
@@ -16,6 +24,14 @@ export default function NewListingForm() {
 
   return (
     <main className="max-w-3xl mx-auto px-4 pt-14 pb-8 w-full flex-1">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-1 text-sm text-ink/50 hover:text-green transition-colors mb-4"
+      >
+        <ChevronLeft />
+        Back to auction
+      </Link>
+
       <h1 className="text-2xl font-semibold text-ink mb-6">Add auction item</h1>
 
       <form action={action} className="space-y-5">
