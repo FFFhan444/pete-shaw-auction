@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Listing } from "@/app/generated/prisma/client";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/session";
@@ -43,20 +42,9 @@ export default async function HomePage() {
                 href={`/listings/${listing.id}`}
                 className="group bg-white rounded-lg border border-ink/10 overflow-hidden hover:border-green/40 hover:shadow-md transition-all flex flex-col"
               >
-                {listing.imageUrl ? (
-                  <div className="relative h-44 w-full bg-ink/5">
-                    <Image
-                      src={listing.imageUrl}
-                      alt={listing.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div className="h-44 w-full bg-green-light flex items-center justify-center">
-                    <span className="text-green/40 text-4xl">⛳</span>
-                  </div>
-                )}
+                <div className="h-44 w-full bg-green-light flex items-center justify-center">
+                  <span className="text-5xl">{listing.emoji ?? "⛳"}</span>
+                </div>
                 <div className="p-4 flex flex-col flex-1">
                   <h2 className="text-lg font-semibold text-ink leading-snug group-hover:text-green transition-colors">
                     {listing.title}

@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import type { Bid } from "@/app/generated/prisma/client";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/session";
 import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 import BidForm from "./BidForm";
+import BidHistory from "./BidHistory";
 import DeleteButton from "./DeleteButton";
 
 export default async function ListingPage(props: {
@@ -54,14 +54,9 @@ export default async function ListingPage(props: {
               All items
             </Link>
 
-            {listing.imageUrl && (
-              <div className="relative w-full h-64 rounded-lg overflow-hidden border border-ink/10 mb-6">
-                <Image
-                  src={listing.imageUrl}
-                  alt={listing.title}
-                  fill
-                  className="object-cover"
-                />
+            {listing.emoji && (
+              <div className="w-full h-40 bg-green-light rounded-lg flex items-center justify-center mb-6 text-7xl">
+                {listing.emoji}
               </div>
             )}
 
@@ -105,9 +100,6 @@ export default async function ListingPage(props: {
                   <p className="text-4xl font-semibold text-green">
                     £{highestBid.amount.toFixed(2)}
                   </p>
-                  <p className="text-sm text-ink/60 mt-1">
-                    by {highestBid.bidderName}
-                  </p>
                 </>
               ) : (
                 <>
@@ -116,7 +108,7 @@ export default async function ListingPage(props: {
                   </p>
                   {listing.minimumBid > 0 ? (
                     <p className="text-lg text-ink/70">
-                      Starting from{" "}
+                      Reserve{" "}
                       <span className="font-semibold text-green">
                         £{listing.minimumBid.toFixed(2)}
                       </span>
@@ -135,71 +127,8 @@ export default async function ListingPage(props: {
               minimumBid={Math.max(highestBid?.amount ?? 0, listing.minimumBid ?? 0)}
             />
 
-            {/* Bid history */}
-            {listing.bids.length > 0 && (
-              <div className="mt-6">
-                <h2 className="text-base font-semibold text-ink mb-3">
-                  All bids
-                </h2>
-                <div className="space-y-2">
-                  {listing.bids.map((bid: Bid, index: number) => (
-                    <div
-                      key={bid.id}
-                      className={`flex items-center justify-between py-2.5 px-3 rounded-md ${
-                        index === 0
-                          ? "bg-green text-white"
-                          : "bg-white border border-ink/10"
-                      }`}
-                    >
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2">
-                          {index === 0 && (
-                            <span className="text-xs">🏆</span>
-                          )}
-                          <span
-                            className={`text-sm font-semibold ${
-                              index === 0 ? "text-white" : "text-ink"
-                            }`}
-                          >
-                            {bid.bidderName}
-                          </span>
-                        </div>
-                        {bid.note && (
-                          <p
-                            className={`text-xs mt-0.5 italic truncate ${
-                              index === 0 ? "text-white/70" : "text-ink/50"
-                            }`}
-                          >
-                            "{bid.note}"
-                          </p>
-                        )}
-                      </div>
-                      <div className="text-right shrink-0">
-                        <span
-                          className={`font-semibold ${
-                            index === 0 ? "text-white" : "text-green"
-                          }`}
-                        >
-                          £{bid.amount.toFixed(2)}
-                        </span>
-                        <p
-                          className={`text-xs mt-0.5 ${
-                            index === 0 ? "text-white/70" : "text-ink/40"
-                          }`}
-                        >
-                          {new Date(bid.createdAt).toLocaleString("en-GB", {
-                            day: "numeric",
-                            month: "short",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* Bid history — locked behind admin password */}
+            <BidHistory bids={listing.bids as Bid[]} />
           </div>
         </div>
       </main>

@@ -16,7 +16,7 @@ model Listing {
   id           String   @id @default(cuid())
   title        String
   description  String
-  imageUrl     String?
+  emoji        String?
   externalLink String?
   minimumBid   Float    @default(0)
   createdBy    String
