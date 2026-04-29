@@ -90,34 +90,14 @@ export default async function ListingPage(props: {
 
           {/* Right column: bids */}
           <div>
-            {/* Highest bid */}
+            {/* Reserve */}
             <div className="bg-green-light border border-green/20 rounded-lg p-5 mb-6">
-              {highestBid ? (
-                <>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-green/70 mb-1">
-                    Current highest bid
-                  </p>
-                  <p className="text-4xl font-semibold text-green">
-                    £{highestBid.amount.toFixed(2)}
-                  </p>
-                </>
-              ) : (
-                <>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-green/70 mb-1">
-                    No bids yet
-                  </p>
-                  {listing.minimumBid > 0 ? (
-                    <p className="text-lg text-ink/70">
-                      Reserve{" "}
-                      <span className="font-semibold text-green">
-                        £{listing.minimumBid.toFixed(2)}
-                      </span>
-                    </p>
-                  ) : (
-                    <p className="text-lg text-ink/50">Be the first to bid!</p>
-                  )}
-                </>
-              )}
+              <p className="text-xs font-semibold uppercase tracking-widest text-green/70 mb-1">
+                Reserve
+              </p>
+              <p className="text-4xl font-semibold text-green">
+                £{(listing.minimumBid ?? 0).toFixed(2)}
+              </p>
             </div>
 
             {/* Bid form */}

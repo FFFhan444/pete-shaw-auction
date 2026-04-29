@@ -22,8 +22,8 @@ export async function createListing(
     return { error: "Title and description are required." };
   }
 
-  if (minimumBid < 0) {
-    return { error: "Reserve cannot be negative." };
+  if (!formData.get("minimumBid") || isNaN(minimumBid) || minimumBid < 0) {
+    return { error: "A reserve amount is required." };
   }
 
   const listing = await prisma.listing.create({

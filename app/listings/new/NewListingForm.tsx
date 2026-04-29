@@ -65,7 +65,7 @@ export default function NewListingForm() {
 
         <div>
           <label htmlFor="minimumBid" className="block text-sm font-semibold text-ink mb-1">
-            Reserve <span className="text-ink/40 font-normal">(optional)</span>
+            Reserve <span className="text-green">*</span>
           </label>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink/50 font-semibold">£</span>
@@ -75,6 +75,7 @@ export default function NewListingForm() {
               type="number"
               step="0.01"
               min="0"
+              required
               placeholder="0.00"
               className="w-full border border-ink/20 rounded-md pl-7 pr-4 py-2.5 text-ink bg-white focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-base"
             />
