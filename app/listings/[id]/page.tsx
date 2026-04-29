@@ -90,16 +90,6 @@ export default async function ListingPage(props: {
 
           {/* Right column: bids */}
           <div>
-            {/* Reserve */}
-            <div className="bg-green-light border border-green/20 rounded-lg p-5 mb-6">
-              <p className="text-xs font-semibold uppercase tracking-widest text-green/70 mb-1">
-                Reserve
-              </p>
-              <p className="text-4xl font-semibold text-green">
-                £{(listing.minimumBid ?? 0).toFixed(2)}
-              </p>
-            </div>
-
             {/* Bid form */}
             <BidForm
               listingId={id}
