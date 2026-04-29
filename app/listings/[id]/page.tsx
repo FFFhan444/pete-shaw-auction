@@ -8,6 +8,7 @@ import Footer from "@/app/components/Footer";
 import BidForm from "./BidForm";
 import BidHistory from "./BidHistory";
 import DeleteButton from "./DeleteButton";
+import EditButton from "./EditButton";
 
 export default async function ListingPage(props: {
   params: Promise<{ id: string }>;
@@ -83,7 +84,8 @@ export default async function ListingPage(props: {
               </a>
             )}
 
-            <div className="mt-6">
+            <div className="mt-6 flex items-center gap-4">
+              <EditButton listingId={id} />
               <DeleteButton listingId={id} />
             </div>
           </div>
