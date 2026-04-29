@@ -37,7 +37,7 @@ export default function NewListingForm() {
       <form action={action} className="space-y-5">
         <div>
           <label htmlFor="title" className="block text-sm font-semibold text-ink mb-1">
-            Item name <span className="text-green">*</span>
+            Item name
           </label>
           <input
             id="title"
@@ -51,7 +51,7 @@ export default function NewListingForm() {
 
         <div>
           <label htmlFor="description" className="block text-sm font-semibold text-ink mb-1">
-            Description <span className="text-green">*</span>
+            Description
           </label>
           <textarea
             id="description"
@@ -65,7 +65,7 @@ export default function NewListingForm() {
 
         <div>
           <label htmlFor="minimumBid" className="block text-sm font-semibold text-ink mb-1">
-            Reserve <span className="text-green">*</span>
+            Reserve
           </label>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink/50 font-semibold">£</span>
