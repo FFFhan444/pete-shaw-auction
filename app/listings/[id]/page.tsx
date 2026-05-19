@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import type { Bid } from "@/app/generated/prisma/client";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/session";
@@ -55,11 +56,15 @@ export default async function ListingPage(props: {
               All items
             </Link>
 
-            {listing.emoji && (
+            {(listing as any).imageUrl ? (
+              <div className="relative w-full h-56 rounded-lg overflow-hidden mb-6">
+                <Image src={(listing as any).imageUrl} alt={listing.title} fill className="object-cover" />
+              </div>
+            ) : listing.emoji ? (
               <div className="w-full h-40 bg-green-light rounded-lg flex items-center justify-center mb-6 text-7xl">
                 {listing.emoji}
               </div>
-            )}
+            ) : null}
 
             <h1 className="text-3xl font-semibold text-ink leading-snug">
               {listing.title}

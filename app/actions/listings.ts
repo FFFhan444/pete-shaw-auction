@@ -17,6 +17,7 @@ export async function createListing(
   const externalLink = (formData.get("externalLink") as string)?.trim() || null;
   const minimumBid = parseFloat(formData.get("minimumBid") as string) || 0;
   const emoji = (formData.get("emoji") as string)?.trim() || null;
+  const imageUrl = (formData.get("imageUrl") as string)?.trim() || null;
 
   if (!title || !description) {
     return { error: "Title and description are required." };
@@ -32,6 +33,7 @@ export async function createListing(
       description,
       externalLink,
       emoji,
+      imageUrl,
       minimumBid,
       createdBy: session.displayName!,
     },
@@ -54,6 +56,7 @@ export async function updateListing(
   const externalLink = (formData.get("externalLink") as string)?.trim() || null;
   const minimumBid = parseFloat(formData.get("minimumBid") as string);
   const emoji = (formData.get("emoji") as string)?.trim() || null;
+  const imageUrl = (formData.get("imageUrl") as string)?.trim() || null;
 
   if (!title || !description) {
     return { error: "Title and description are required." };
@@ -65,7 +68,7 @@ export async function updateListing(
 
   await prisma.listing.update({
     where: { id },
-    data: { title, description, externalLink, emoji, minimumBid },
+    data: { title, description, externalLink, emoji, imageUrl, minimumBid },
   });
 
   revalidatePath("/");

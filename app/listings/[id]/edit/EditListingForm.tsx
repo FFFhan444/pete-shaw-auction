@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useState, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { updateListing } from "@/app/actions/listings";
 import type { Listing } from "@/app/generated/prisma/client";
@@ -23,6 +24,21 @@ export default function EditListingForm({ listing }: { listing: Listing }) {
   const action = updateListing.bind(null, listing.id);
   const [state, formAction, pending] = useActionState(action, null);
   const [selectedEmoji, setSelectedEmoji] = useState<string | null>(listing.emoji ?? null);
+  const [imageUrl, setImageUrl] = useState<string | null>((listing as any).imageUrl ?? null);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    const fd = new FormData();
+    fd.append("file", file);
+    const res = await fetch("/api/upload", { method: "POST", body: fd });
+    const data = await res.json();
+    if (data.url) setImageUrl(data.url);
+    setUploading(false);
+  }
 
   return (
     <main className="max-w-3xl mx-auto px-4 pt-14 pb-8 w-full flex-1">
@@ -100,6 +116,39 @@ export default function EditListingForm({ listing }: { listing: Listing }) {
 
         <div>
           <label className="block text-sm font-semibold text-ink mb-2">
+            Photo <span className="text-ink/40 font-normal">(optional)</span>
+          </label>
+          <input type="hidden" name="imageUrl" value={imageUrl ?? ""} />
+          {imageUrl ? (
+            <div className="relative w-full h-48 rounded-lg overflow-hidden border border-ink/10">
+              <Image src={imageUrl} alt="Preview" fill className="object-cover" />
+              <button
+                type="button"
+                onClick={() => { setImageUrl(null); if (fileInputRef.current) fileInputRef.current.value = ""; }}
+                className="absolute top-2 right-2 bg-black/50 text-white text-xs rounded-full px-2 py-1 hover:bg-black/70 transition-colors"
+              >
+                Remove
+              </button>
+            </div>
+          ) : (
+            <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-ink/20 rounded-lg cursor-pointer hover:border-green/50 hover:bg-green-light/30 transition-all">
+              <span className="text-ink/40 text-sm">
+                {uploading ? "Uploading…" : "Click to upload a photo"}
+              </span>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageChange}
+                disabled={uploading}
+              />
+            </label>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-semibold text-ink mb-2">
             Icon <span className="text-ink/40 font-normal">(optional)</span>
           </label>
           <input type="hidden" name="emoji" value={selectedEmoji ?? ""} />
@@ -128,7 +177,7 @@ export default function EditListingForm({ listing }: { listing: Listing }) {
         <div className="flex gap-3 pt-2">
           <button
             type="submit"
-            disabled={pending}
+            disabled={pending || uploading}
             className="bg-green text-white rounded-full px-6 py-2.5 font-semibold hover:bg-green-dark transition-colors disabled:opacity-60"
           >
             {pending ? "Saving…" : "Save changes"}

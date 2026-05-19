@@ -17,6 +17,7 @@ model Listing {
   title        String
   description  String
   emoji        String?
+  imageUrl     String?
   externalLink String?
   minimumBid   Float    @default(0)
   createdBy    String
