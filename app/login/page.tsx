@@ -21,39 +21,41 @@ export default function LoginPage() {
         </div>
 
         <form action={action} className="space-y-4">
-          <div>
-            <label
-              htmlFor="displayName"
-              className="block text-sm font-semibold text-ink mb-1"
-            >
-              Your name
-            </label>
-            <input
-              id="displayName"
-              name="displayName"
-              type="text"
-              autoComplete="name"
-              required
-              placeholder="e.g. John Smith"
-              className="w-full border border-ink/20 rounded-md px-4 py-2.5 text-ink bg-white focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-base"
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-semibold text-ink mb-1"
-            >
-              Event password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              placeholder="Enter event password"
-              className="w-full border border-ink/20 rounded-md px-4 py-2.5 text-ink bg-white focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-base"
-            />
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label
+                htmlFor="firstName"
+                className="block text-sm font-semibold text-ink mb-1"
+              >
+                First name
+              </label>
+              <input
+                id="firstName"
+                name="firstName"
+                type="text"
+                autoComplete="given-name"
+                required
+                placeholder="John"
+                className="w-full border border-ink/20 rounded-md px-4 py-2.5 text-ink bg-white focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-base"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="lastName"
+                className="block text-sm font-semibold text-ink mb-1"
+              >
+                Last name
+              </label>
+              <input
+                id="lastName"
+                name="lastName"
+                type="text"
+                autoComplete="family-name"
+                required
+                placeholder="Smith"
+                className="w-full border border-ink/20 rounded-md px-4 py-2.5 text-ink bg-white focus:outline-none focus:ring-2 focus:ring-green focus:border-transparent text-base"
+              />
+            </div>
           </div>
 
           {state?.error && (

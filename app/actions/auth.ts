@@ -7,20 +7,16 @@ export async function login(
   prevState: { error?: string } | null,
   formData: FormData
 ) {
-  const password = formData.get("password") as string;
-  const displayName = (formData.get("displayName") as string)?.trim();
+  const firstName = (formData.get("firstName") as string)?.trim();
+  const lastName = (formData.get("lastName") as string)?.trim();
 
-  if (!password || !displayName) {
-    return { error: "Please enter both your name and the event password." };
-  }
-
-  if (password !== process.env.AUCTION_PASSWORD?.trim()) {
-    return { error: "Incorrect password. Please try again." };
+  if (!firstName || !lastName) {
+    return { error: "Please enter your first and last name." };
   }
 
   const session = await getSession();
   session.loggedIn = true;
-  session.displayName = displayName;
+  session.displayName = `${firstName} ${lastName}`;
   await session.save();
 
   redirect("/");
